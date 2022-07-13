@@ -897,16 +897,6 @@ video {
           animation-delay: 0ms;
 }
 
-.\[animation-delay\:200ms\] {
-  -webkit-animation-delay: 200ms;
-          animation-delay: 200ms;
-}
-
-.\[animation-delay\:300ms\] {
-  -webkit-animation-delay: 300ms;
-          animation-delay: 300ms;
-}
-
 .placeholder\:text-slate-500::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(100 116 139 / var(--tw-text-opacity));
@@ -968,6 +958,11 @@ video {
   background-color: rgb(16 185 129 / 0.8);
 }
 
+.after\:bg-sky-500\/80::after {
+  content: var(--tw-content);
+  background-color: rgb(14 165 233 / 0.8);
+}
+
 .after\:py-1::after {
   content: var(--tw-content);
   padding-top: 0.25rem;
@@ -983,6 +978,21 @@ video {
 .after\:font-bold::after {
   content: var(--tw-content);
   font-weight: 700;
+}
+
+.after\:content-\[\'completed\'\]::after {
+  --tw-content: 'completed';
+  content: var(--tw-content);
+}
+
+.after\:content-\[\"completed\"\]::after {
+  --tw-content: "completed";
+  content: var(--tw-content);
+}
+
+.after\:content-\[\"editing\"\]::after {
+  --tw-content: "editing";
+  content: var(--tw-content);
 }
 
 .hover\:bg-emerald-600:hover {

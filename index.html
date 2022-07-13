@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="output.css" />
+    <script src="index.js" defer></script>
     <title>Todo - vanilla js</title>
   </head>
   <body>
@@ -44,62 +45,29 @@
           </button>
         </form>
 
-        <div class="mt-16 grid grid-cols-ram place-content-center gap-8">
-          <div
-            class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold after:content-[&quot;completed&quot;] after:bg-emerald-500/80 after:grid border-emerald-600 p-3 shadow-xl hover:bg-slate-700 [animation-delay:0ms]"
-          >
-            <h2 class="text-2xl font-bold text-sky-500">Trash</h2>
-            <p class="mb-8 text-white">I need to take out the trash today</p>
-            <div class="mt-auto flex w-full gap-6">
-              <button
-                disabled=""
-                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
-              >
-                edit</button
-              ><button
-                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
-              >
-                uncomplete
-              </button>
-            </div>
-          </div>
-          <div
-            class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold after:hidden border-sky-600 p-3 shadow-xl hover:bg-slate-700 [animation-delay:200ms]"
-          >
-            <h2 class="text-2xl font-bold text-sky-500">Vet</h2>
-            <p class="mb-8 text-white">I need to take my dog to the vet tomorrow</p>
-            <div class="mt-auto flex w-full gap-6">
-              <button
-                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
-              >
-                edit</button
-              ><button
-                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
-              >
-                complete
-              </button>
-            </div>
-          </div>
-          <div
-            class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold after:content-[&quot;completed&quot;] after:bg-emerald-500/80 after:grid border-emerald-600 p-3 shadow-xl hover:bg-slate-700 [animation-delay:300ms]"
-          >
-            <h2 class="text-2xl font-bold text-sky-500">Exam</h2>
-            <p class="mb-8 text-white">I need to study for the history exam tomorrow</p>
-            <div class="mt-auto flex w-full gap-6">
-              <button
-                disabled=""
-                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
-              >
-                edit</button
-              ><button
-                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
-              >
-                uncomplete
-              </button>
-            </div>
-          </div>
-        </div>
+        <div data-entity="todos-container" class="mt-16 grid grid-cols-ram place-content-center gap-8"></div>
       </div>
     </main>
+
+    <template id="todo">
+      <div
+        data-entity="todo-card"
+        class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold p-3 shadow-xl hover:bg-slate-700 [animation-delay:0ms]"
+      >
+        <h2 data-entity="todo-title" class="text-2xl font-bold text-sky-500"></h2>
+        <p data-entity="todo-description" class="mb-8 text-white"></p>
+        <div class="mt-auto flex w-full gap-6">
+          <button
+            data-entity="todo-edit-btn"
+            class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+          >
+            edit</button
+          ><button
+            data-entity="todo-complete-btn"
+            class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+          ></button>
+        </div>
+      </div>
+    </template>
   </body>
 </html>
