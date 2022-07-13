@@ -92,15 +92,20 @@ function toggleTodoComplete(id) {
   const isCompleted = selectedTodo.completed;
   selectedTodo.completed = !isCompleted;
 
-  let btnNode = todosContainer.querySelector(`[data-id="${id}"]`).querySelector("[data-entity='todo-complete-btn']");
-  let cardNode = btnNode.closest("[data-entity='todo-card']");
+  let completeBtnNode = todosContainer
+    .querySelector(`[data-id="${id}"]`)
+    .querySelector("[data-entity='todo-complete-btn']");
+
+  let editBtnNode = todosContainer.querySelector(`[data-id="${id}"]`).querySelector("[data-entity='todo-edit-btn']");
+  let cardNode = completeBtnNode.closest("[data-entity='todo-card']");
 
   if (isCompleted) {
-    btnNode.textContent = 'complete';
+    completeBtnNode.textContent = 'complete';
     cardNode.classList.remove('after:grid', 'border-emerald-600');
     cardNode.classList.add('after:hidden', 'border-sky-600');
+    editBtnNode.disabled = false;
   } else {
-    btnNode.textContent = 'uncomplete';
+    completeBtnNode.textContent = 'uncomplete';
     cardNode.classList.add(
       'after:grid',
       'border-emerald-600',
@@ -108,6 +113,7 @@ function toggleTodoComplete(id) {
       'after:bg-emerald-500/80',
     );
     cardNode.classList.remove('after:hidden', 'border-sky-600');
+    editBtnNode.disabled = true;
   }
 }
 
