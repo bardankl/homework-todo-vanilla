@@ -13,10 +13,11 @@
       <div class="container mx-auto min-h-screen p-5 text-lg">
         <h1 class="text-center text-5xl font-bold text-sky-500 underline decoration-emerald-500">Todo App</h1>
 
-        <form class="mx-auto mt-20 flex max-w-sm flex-wrap space-y-5">
+        <form data-entity="todo-editor" class="mx-auto mt-20 flex max-w-sm flex-wrap space-y-5">
           <div class="flex basis-full flex-wrap gap-1">
             <label for="title" class="basis-full font-semibold text-sky-400">title</label
             ><input
+              data-entity="todo-editor-title"
               placeholder="Add a title..."
               type="text"
               name="title"
@@ -28,6 +29,7 @@
           <div class="flex basis-full flex-wrap gap-1">
             <label for="description" class="basis-full font-semibold text-sky-400">description</label
             ><textarea
+              data-entity="todo-editor-description"
               placeholder="Add some text..."
               name="description"
               id="description"
@@ -38,7 +40,8 @@
             <div class="flex basis-full flex-wrap gap-1"></div>
           </div>
           <button
-            disabled=""
+            disabled
+            data-entity="todo-editor-submit-btn"
             class="basis-full rounded bg-emerald-500 py-2 font-semibold uppercase text-slate-100 shadow-sm hover:bg-emerald-600 active:bg-emerald-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
           >
             create

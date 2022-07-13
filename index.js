@@ -1,4 +1,8 @@
 const todosContainer = document.querySelector("[data-entity='todos-container']");
+const todoEditor = document.querySelector("[data-entity='todo-editor']");
+const todoEditorTitle = document.querySelector("[data-entity='todo-editor-title']");
+const todoEditorDescription = document.querySelector("[data-entity='todo-editor-description']");
+const todoEditorSubmitBtn = todoEditor.querySelector("[data-entity='todo-editor-submit-btn']");
 const todoTemplate = document.querySelector('#todo');
 
 const todos = [
@@ -26,6 +30,45 @@ const todos = [
 ];
 
 for (const todo of todos) {
+  appendToDom(todo);
+}
+
+todoEditorTitle.addEventListener('input', handleInputChange);
+todoEditorDescription.addEventListener('input', handleInputChange);
+todoEditor.addEventListener('submit', handleTodoSubmit);
+
+function handleInputChange() {
+  todoEditorSubmitBtn.disabled = isFormDisabled();
+}
+
+function handleTodoSubmit(e) {
+  e.preventDefault();
+
+  const formData = new FormData(todoEditor);
+  const title = formData.get('title').trim();
+  const description = formData.get('description').trim();
+  const id = crypto.randomUUID();
+
+  addTodo(title, description, id);
+  const addedTodo = todos.find((todo) => todo.id === id);
+  appendToDom(addedTodo);
+
+  resetForm();
+}
+
+function isFormDisabled() {
+  const titleValue = todoEditorTitle.value.trim();
+  const descriptionValue = todoEditorDescription.value.trim();
+  return titleValue.length < 1 || descriptionValue.length < 1;
+}
+
+function resetForm() {
+  todoEditorTitle.value = '';
+  todoEditorDescription.value = '';
+  todoEditorSubmitBtn.disabled = isFormDisabled();
+}
+
+function appendToDom(todo) {
   const todoNode = todoTemplate.content.cloneNode(true);
 
   const card = todoNode.querySelector("[data-entity='todo-card']");
@@ -53,6 +96,7 @@ for (const todo of todos) {
     card.classList.add('after:grid');
   }
 
+  card.dataset.id = todo.id;
   title.textContent = todo.title;
   description.textContent = todo.description;
   completeBtn.textContent = todo.completed ? 'uncomplete' : 'complete';
@@ -60,4 +104,18 @@ for (const todo of todos) {
   editBtn.disabled = todo.completed ? true : false;
 
   todosContainer.appendChild(todoNode);
+}
+
+function addTodo(title, description, id) {
+  if (!title || !description) {
+    return;
+  }
+
+  todos.push({
+    id,
+    title,
+    description,
+    completed: false,
+    editing: false,
+  });
 }
