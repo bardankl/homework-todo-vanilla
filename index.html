@@ -7,5 +7,99 @@
     <link rel="stylesheet" href="output.css" />
     <title>Todo - vanilla js</title>
   </head>
-  <body></body>
+  <body>
+    <main class="bg-slate-800">
+      <div class="container mx-auto min-h-screen p-5 text-lg">
+        <h1 class="text-center text-5xl font-bold text-sky-500 underline decoration-emerald-500">Todo App</h1>
+
+        <form class="mx-auto mt-20 flex max-w-sm flex-wrap space-y-5">
+          <div class="flex basis-full flex-wrap gap-1">
+            <label for="title" class="basis-full font-semibold text-sky-400">title</label
+            ><input
+              placeholder="Add a title..."
+              type="text"
+              name="title"
+              id="title"
+              class="basis-full rounded bg-slate-700 px-2 py-2 text-slate-300 shadow-md outline-offset-2 outline-emerald-500 placeholder:text-slate-500"
+              value=""
+            />
+          </div>
+          <div class="flex basis-full flex-wrap gap-1">
+            <label for="description" class="basis-full font-semibold text-sky-400">description</label
+            ><textarea
+              placeholder="Add some text..."
+              name="description"
+              id="description"
+              cols="30"
+              rows="5"
+              class="basis-full rounded bg-slate-700 px-2 py-2 text-slate-300 shadow-md outline-offset-2 outline-emerald-500 placeholder:text-slate-500"
+            ></textarea>
+            <div class="flex basis-full flex-wrap gap-1"></div>
+          </div>
+          <button
+            disabled=""
+            class="basis-full rounded bg-emerald-500 py-2 font-semibold uppercase text-slate-100 shadow-sm hover:bg-emerald-600 active:bg-emerald-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+          >
+            create
+          </button>
+        </form>
+
+        <div class="mt-16 grid grid-cols-ram place-content-center gap-8">
+          <div
+            class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold after:content-[&quot;completed&quot;] after:bg-emerald-500/80 after:grid border-emerald-600 p-3 shadow-xl hover:bg-slate-700 [animation-delay:0ms]"
+          >
+            <h2 class="text-2xl font-bold text-sky-500">Trash</h2>
+            <p class="mb-8 text-white">I need to take out the trash today</p>
+            <div class="mt-auto flex w-full gap-6">
+              <button
+                disabled=""
+                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+              >
+                edit</button
+              ><button
+                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+              >
+                uncomplete
+              </button>
+            </div>
+          </div>
+          <div
+            class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold after:hidden border-sky-600 p-3 shadow-xl hover:bg-slate-700 [animation-delay:200ms]"
+          >
+            <h2 class="text-2xl font-bold text-sky-500">Vet</h2>
+            <p class="mb-8 text-white">I need to take my dog to the vet tomorrow</p>
+            <div class="mt-auto flex w-full gap-6">
+              <button
+                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+              >
+                edit</button
+              ><button
+                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+              >
+                complete
+              </button>
+            </div>
+          </div>
+          <div
+            class="relative flex translate-y-[-100px] animate-slide-from-top flex-col overflow-clip rounded-md border-2 opacity-0 after:absolute after:left-[40%] after:top-[10%] after:w-full after:rotate-45 after:place-items-center after:py-1 after:text-sm after:font-bold after:content-[&quot;completed&quot;] after:bg-emerald-500/80 after:grid border-emerald-600 p-3 shadow-xl hover:bg-slate-700 [animation-delay:300ms]"
+          >
+            <h2 class="text-2xl font-bold text-sky-500">Exam</h2>
+            <p class="mb-8 text-white">I need to study for the history exam tomorrow</p>
+            <div class="mt-auto flex w-full gap-6">
+              <button
+                disabled=""
+                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+              >
+                edit</button
+              ><button
+                class="basis-full rounded-md bg-sky-500 px-1 py-1 text-base font-medium uppercase text-white shadow-lg hover:bg-sky-600 active:bg-sky-700 active:shadow-inner active:shadow-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500 disabled:text-slate-300"
+              >
+                uncomplete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
