@@ -995,6 +995,11 @@ video {
   content: var(--tw-content);
 }
 
+.after\:content-\[\'editing\'\]::after {
+  --tw-content: 'editing';
+  content: var(--tw-content);
+}
+
 .hover\:bg-emerald-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(5 150 105 / var(--tw-bg-opacity));

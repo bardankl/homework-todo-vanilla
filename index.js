@@ -33,6 +33,8 @@ for (const todo of todos) {
   appendToDom(todo);
 }
 
+let selectedTodoId = null;
+
 todoEditorTitle.addEventListener('input', handleInputChange);
 todoEditorDescription.addEventListener('input', handleInputChange);
 todoEditor.addEventListener('submit', handleTodoSubmit);
@@ -47,11 +49,21 @@ function handleTodoSubmit(e) {
   const formData = new FormData(todoEditor);
   const title = formData.get('title').trim();
   const description = formData.get('description').trim();
-  const id = crypto.randomUUID();
 
-  addTodo(title, description, id);
-  const addedTodo = todos.find((todo) => todo.id === id);
-  appendToDom(addedTodo);
+  if (!selectedTodoId) {
+    const id = crypto.randomUUID();
+    addTodo(title, description, id);
+    const addedTodo = todos.find((todo) => todo.id === id);
+    appendToDom(addedTodo);
+  } else {
+    const editedTodo = todos.find((todo) => todo.id === selectedTodoId);
+    editedTodo.title = title;
+    editedTodo.description = description;
+    const todoNode = todosContainer.querySelector(`[data-id="${selectedTodoId}"]`);
+    selectedTodoId = null;
+    updateTodoNode(todoNode, editedTodo.title, editedTodo.description);
+    todoEditorSubmitBtn.textContent = 'create';
+  }
 
   resetForm();
 }
@@ -112,9 +124,41 @@ function toggleTodoComplete(id) {
       'after:content-["completed"]',
       'after:bg-emerald-500/80',
     );
-    cardNode.classList.remove('after:hidden', 'border-sky-600');
+    cardNode.classList.remove('after:hidden', 'border-sky-600', 'after:content-["editing"]');
     editBtnNode.disabled = true;
   }
+}
+
+function toggleTodoEdit(id) {
+  if (selectedTodoId) {
+    const previouslySelectedTodo = todos.find((todo) => (todo.editing = selectedTodoId));
+    previouslySelectedTodo.editing = false;
+    const previouslyEditedNode = todosContainer.querySelector(`[data-id="${selectedTodoId}"]`);
+    previouslyEditedNode.querySelector(`[data-entity="todo-complete-btn"]`).disabled = false;
+    previouslyEditedNode.classList.remove("after:content-['editing']", 'after:bg-sky-500/80', 'after:grid');
+    previouslyEditedNode.classList.add('after:hidden');
+  }
+
+  const selectedTodo = todos.find((todo) => todo.id === id);
+  selectedTodoId = id;
+
+  const isEditing = selectedTodo.editing;
+  selectedTodo.editing = !isEditing;
+
+  let completeBtnNode = todosContainer
+    .querySelector(`[data-id="${id}"]`)
+    .querySelector("[data-entity='todo-complete-btn']");
+
+  let cardNode = completeBtnNode.closest("[data-entity='todo-card']");
+
+  cardNode.classList.add('after:grid', 'after:content-["editing"]', 'after:bg-sky-500/80');
+  cardNode.classList.remove('after:hidden');
+  completeBtnNode.disabled = true;
+
+  todoEditorTitle.value = selectedTodo.title;
+  todoEditorDescription.value = selectedTodo.description;
+  todoEditorSubmitBtn.textContent = 'save';
+  todoEditorSubmitBtn.disabled = isFormDisabled();
 }
 
 function createNode(todo) {
@@ -153,6 +197,15 @@ function createNode(todo) {
   editBtn.disabled = todo.completed ? true : false;
 
   completeBtn.addEventListener('click', toggleTodoComplete.bind(null, todo.id));
+  editBtn.addEventListener('click', toggleTodoEdit.bind(null, todo.id));
 
   return todoNode;
+}
+
+function updateTodoNode(node, title, description) {
+  node.classList.remove("after:content-['editing']", 'after:bg-sky-500/80', 'after:grid');
+  node.classList.add('after:hidden');
+  node.querySelector('[data-entity="todo-title"]').textContent = title;
+  node.querySelector('[data-entity="todo-description"]').textContent = description;
+  node.querySelector('[data-entity="todo-complete-btn"]').disabled = false;
 }
