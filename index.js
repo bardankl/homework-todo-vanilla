@@ -1,7 +1,7 @@
 const todosContainer = document.querySelector("[data-entity='todos-container']");
 const todoEditor = document.querySelector("[data-entity='todo-editor']");
-const todoEditorTitle = document.querySelector("[data-entity='todo-editor-title']");
-const todoEditorDescription = document.querySelector("[data-entity='todo-editor-description']");
+const todoEditorTitle = todoEditor.querySelector("[data-entity='todo-editor-title']");
+const todoEditorDescription = todoEditor.querySelector("[data-entity='todo-editor-description']");
 const todoEditorSubmitBtn = todoEditor.querySelector("[data-entity='todo-editor-submit-btn']");
 const todoTemplate = document.querySelector('#todo');
 
@@ -69,6 +69,49 @@ function resetForm() {
 }
 
 function appendToDom(todo) {
+  const node = createNode(todo);
+  todosContainer.appendChild(node);
+}
+
+function addTodo(title, description, id) {
+  if (!title || !description) {
+    return;
+  }
+
+  todos.push({
+    id,
+    title,
+    description,
+    completed: false,
+    editing: false,
+  });
+}
+
+function toggleTodoComplete(id) {
+  const selectedTodo = todos.find((todo) => todo.id === id);
+  const isCompleted = selectedTodo.completed;
+  selectedTodo.completed = !isCompleted;
+
+  let btnNode = todosContainer.querySelector(`[data-id="${id}"]`).querySelector("[data-entity='todo-complete-btn']");
+  let cardNode = btnNode.closest("[data-entity='todo-card']");
+
+  if (isCompleted) {
+    btnNode.textContent = 'complete';
+    cardNode.classList.remove('after:grid', 'border-emerald-600');
+    cardNode.classList.add('after:hidden', 'border-sky-600');
+  } else {
+    btnNode.textContent = 'uncomplete';
+    cardNode.classList.add(
+      'after:grid',
+      'border-emerald-600',
+      'after:content-["completed"]',
+      'after:bg-emerald-500/80',
+    );
+    cardNode.classList.remove('after:hidden', 'border-sky-600');
+  }
+}
+
+function createNode(todo) {
   const todoNode = todoTemplate.content.cloneNode(true);
 
   const card = todoNode.querySelector("[data-entity='todo-card']");
@@ -103,19 +146,7 @@ function appendToDom(todo) {
   completeBtn.disabled = todo.editing ? true : false;
   editBtn.disabled = todo.completed ? true : false;
 
-  todosContainer.appendChild(todoNode);
-}
+  completeBtn.addEventListener('click', toggleTodoComplete.bind(null, todo.id));
 
-function addTodo(title, description, id) {
-  if (!title || !description) {
-    return;
-  }
-
-  todos.push({
-    id,
-    title,
-    description,
-    completed: false,
-    editing: false,
-  });
+  return todoNode;
 }
