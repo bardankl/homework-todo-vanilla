@@ -162,7 +162,19 @@ function toggleTodoEdit(id) {
 }
 
 function createNode(todo) {
-  const todoNode = todoTemplate.content.cloneNode(true);
+  const todoNode = todoTemplate.content.cloneNode(true); // interesting approche. Template approach could be implemented in different way - for Example
+  
+//  <script id="todo-template" type="text/template">
+//       <div class="todo-item">
+//           <div class="todo-title">{title}</div>
+//           <div class="todo-body">{body}</div>
+//       </div>
+//     </script>
+  
+//   const template = document.querySelector("#todo-template").innerHTML;
+// const newTodo = template
+// .replace("{title}", "some title")
+// .replace("{body}", "some body");
 
   const card = todoNode.querySelector("[data-entity='todo-card']");
   const title = todoNode.querySelector("[data-entity='todo-title']");
